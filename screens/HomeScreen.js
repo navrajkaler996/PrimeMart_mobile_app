@@ -15,7 +15,7 @@ function HomeScreen() {
         {/* <Text style={styles["heading-text"]}>
           Best retail stores in Winnipeg
         </Text> */}
-        <View style={styles["top-container-2"]}>
+        <View style={styles["location-container"]}>
           {/*Location */}
 
           <Text style={styles["location-text"]}>
@@ -57,6 +57,13 @@ function HomeScreen() {
         </View>
         {/*Location */}
       </View>
+      <View style={styles["navigation-bar"]}>
+        <Text style={styles["navigation-bar-item"]}>Top deals</Text>
+        <Text style={styles["navigation-bar-item"]}>Flyer</Text>
+        <Text style={styles["navigation-bar-item"]}>Fresh food</Text>
+        <Text style={styles["navigation-bar-item"]}>Snacks</Text>
+        <Text style={styles["navigation-bar-item"]}>Seasonal</Text>
+      </View>
     </View>
   );
 }
@@ -69,7 +76,7 @@ const styles = StyleSheet.create({
     // borderBottomLeftRadius: 40,
     // borderBottomRightRadius: 40,
   },
-  "top-container-2": {
+  "location-container": {
     height: 50,
 
     justifyContent: "center",
@@ -97,6 +104,18 @@ const styles = StyleSheet.create({
   },
   "searchbar-container": {
     marginBottom: 15,
+  },
+  "navigation-bar": {
+    minHeight: 40,
+    backgroundColor: colors["primary-dark"],
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-around",
+  },
+  "navigation-bar-item": {
+    fontFamily: "Poppins-Regular",
+    color: "#fff",
+    letterSpacing: 0.2,
   },
   "dropdown-option-info": {
     width: 410,
