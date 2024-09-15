@@ -4,6 +4,7 @@ import colors from "../constants/color";
 import SearchBar from "../components/SearchBar";
 
 import { Ionicons } from "react-native-vector-icons";
+import HorizontalScrollList from "../components/HorizontalScrollList";
 
 function HomeScreen() {
   const [searchText, setSearchText] = useState("");
@@ -64,12 +65,15 @@ function HomeScreen() {
         <Text style={styles["navigation-bar-item"]}>Snacks</Text>
         <Text style={styles["navigation-bar-item"]}>Seasonal</Text>
       </View>
+      <View>
+        <HorizontalScrollList />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  container: { flex: 1, backgroundColor: "#fff" },
   "top-container-1": {
     minHeight: 120,
     backgroundColor: colors.primary,

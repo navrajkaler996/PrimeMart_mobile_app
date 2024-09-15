@@ -12,6 +12,7 @@ export default function App() {
         "Poppins-Black": require("./assets/fonts/Poppins-Black.ttf"),
         "Poppins-Regular": require("./assets/fonts/Poppins-Regular.ttf"),
         "Poppins-Bold": require("./assets/fonts/Poppins-Bold.ttf"),
+        "Poppins-SemiBold": require("./assets/fonts/Poppins-SemiBold.ttf"),
       });
       setFontsLoaded(true);
     };
@@ -27,14 +28,16 @@ export default function App() {
     );
   }
 
-  return <AppNavigator />;
+  return (
+    <View style={styles.container}>
+      <AppNavigator />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
   },
 });
