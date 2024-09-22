@@ -9,8 +9,16 @@ import {
 } from "react-native";
 import Button from "../Button";
 import modalStyles from "../styles/modalStyles";
+import useUser from "../../hooks/useUser";
+
+const options = {
+  type: "CREATE_USER",
+  method: "POST",
+};
 
 const SignupModal = ({ isVisible, onClose }) => {
+  const { userSignUpHandler } = useUser(options);
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,6 +28,7 @@ const SignupModal = ({ isVisible, onClose }) => {
   const handlePasswordChange = (text) => setPassword(text);
 
   const handleSubmit = () => {
+    userSignUpHandler(name, email, password);
     setName("");
     setEmail("");
     setPassword("");

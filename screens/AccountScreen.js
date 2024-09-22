@@ -1,15 +1,48 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { useFocusEffect } from "@react-navigation/core";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+
+import jwt_decode, { jwtDecode } from "jwt-decode";
 
 import Button from "../components/Button";
 import Modal from "../components/Modals/SignInModal";
 import SignupModal from "../components/Modals/SignUpModal";
 
+import { getValueFor } from "../helper";
 import colors from "../constants/color";
 
 const AccountScreen = () => {
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [isSignInModalVisible, setIsSignInModalVisible] = useState(false);
   const [isSignUpModalVisible, setIsSignUpModalVisible] = useState(false);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const checkForToken = async () => {
+        const token = await getValueFor("token");
+
+        if (token) {
+          try {
+            const decodedToken = jwtDecode(token);
+            const currentTime = Date.now() / 1000;
+
+            if (decodedToken.exp < currentTime) {
+              setUserLoggedIn(false);
+            } else {
+              setUserLoggedIn(true);
+            }
+          } catch (error) {
+            console.error("Error decoding token:", error);
+            setUserLoggedIn(false);
+          }
+        } else {
+          setUserLoggedIn(false);
+        }
+      };
+
+      checkForToken();
+    })
+  );
 
   const handleSignInPress = () => {
     setIsSignInModalVisible(true);
@@ -32,13 +65,15 @@ const AccountScreen = () => {
       <View style={styles["top-container-1"]}>
         <Text style={styles["heading-text"]}>Account</Text>
       </View>
-      <View style={styles["btn-container"]}>
-        <Button text="Sign in" onPress={handleSignInPress} />
-        <Text>or</Text>
-        <TouchableOpacity onPress={handleSignUpPress}>
-          <Text style={styles["new-account-text"]}>Create a new account</Text>
-        </TouchableOpacity>
-      </View>
+      {!userLoggedIn && (
+        <View style={styles["btn-container"]}>
+          <Button text="Sign in" onPress={handleSignInPress} />
+          <Text>or</Text>
+          <TouchableOpacity onPress={handleSignUpPress}>
+            <Text style={styles["new-account-text"]}>Create a new account</Text>
+          </TouchableOpacity>
+        </View>
+      )}
 
       {isSignInModalVisible && <Modal onClose={handleSignInCloseModal} />}
       {isSignUpModalVisible && <SignupModal onClose={handleSignUpCloseModal} />}
